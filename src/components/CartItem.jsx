@@ -44,7 +44,7 @@ const AddToCart = ( ) => {
                 onClick={() => {
                   dispatch(removeCart(cart));
                 }}
-                className=" select-none cursor-pointer hover:bg-red-600 hover:text-white absolute top-[-20px] px-2 rounded right-[-20px] bg-red-200"
+                className=" select-none cursor-pointer hover:bg-red-600 hover:text-white absolute top-[-15px] px-2 rounded right-[-10px] bg-red-200"
               >
                 X
               </span>
@@ -54,8 +54,8 @@ const AddToCart = ( ) => {
       })}
       <hr className=" border-2 border-b-slate-400 my-5 w-3/4 mx-auto" />
       <div className=" w-3/4 mx-auto mb-10 flex justify-between px-5">
-        <h1 className=" text-2xl font-bold">Total</h1>
-        <h1 className=" text-2xl font-bold">$ {totalAmount.toFixed(2)}</h1>
+        <h1 className=" text-xl lg:text-2xl font-bold">Total</h1>
+        <h1 className=" text-xl lg:text-2xl font-bold">$ {totalAmount.toFixed(2)}</h1>
       </div>
     </div>
   );

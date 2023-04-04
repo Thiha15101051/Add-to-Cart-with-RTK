@@ -14,22 +14,29 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="flex justify-between px-10 items-center shadow-md">
+      <div className="flex justify-between px-2 lg:px-10 items-center shadow-md w-full">
         <Link to={"/"}>
           <GiShop className=" cursor-pointer text-4xl mr-5" />
         </Link>
         <div className="flex items-center my-3">
-          <div className="hover:bg-orange-300 bg-orange-100 rounded-lg py-3 px-4 mr-5 flex items-center">
+          <div className="hover:bg-orange-300 bg-orange-100 rounded-lg py-2 lg:py-2 px-3 mr-0 lg:mr-5 flex items-center">
             <input
-              onChange={(e)=>{dispatch(search(e.target.value))}}
-              className=" bg-transparent outline-0 border-b border-gray-600"
+              onChange={(e) => {
+                dispatch(search(e.target.value));
+              }}
+              className=" bg-transparent outline-0 border-b border-gray-600 max-w-[100px] lg:max-w-[150px]"
               placeholder="Search. . ."
               type="text"
             />
             <BsSearch className=" text-lg" />
           </div>
           <div className=" relative w-20">
-              <GrCart onClick={()=>{dispatch(showModalBtn(true))}} className=" cursor-pointer text-4xl mx-auto relative z-10" />
+            <GrCart
+              onClick={() => {
+                dispatch(showModalBtn(true));
+              }}
+              className=" cursor-pointer text-4xl mx-auto relative z-10"
+            />
             <Badge
               color="yellow"
               className=" select-none absolute top-[-10px] right-0 z-0 text-black"

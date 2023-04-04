@@ -23,7 +23,7 @@ const AddToCartModal=()=> {
   return (
     <>
       <Modal.Root
-        size={"70vw"}
+        size={"80vw"}
         opened={showModal}
         onClose={() => dispatch(showModalBtn(false))}
         transitionProps={{ transition: "rotate-left" }}

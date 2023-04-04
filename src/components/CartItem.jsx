@@ -13,7 +13,7 @@ const AddToCart = ( ) => {
         const oneItemPrice = cart.price * cart.quantity;
         return (
           <div key={cart.id} className="  my-10">
-            <div className="flex flex-col relative mb-10 bg-white justify-center lg:flex-row items-center lg:w-3/4 w-11/12 lg:justify-between p-2 lg:p-2 rounded-md mx-auto shadow-md">
+            <div className="flex flex-col relative mb-10 bg-white justify-center lg:flex-row items-center lg:w-3/4 w-full lg:justify-between p-2 lg:p-2 rounded-md mx-auto shadow-md">
               <div className=" flex flex-col lg:flex-row justify-center items-center">
                 <img src={cart.image} className="w-20 mr-5" alt="" />
                 <div className="flex flex-col justify-between">

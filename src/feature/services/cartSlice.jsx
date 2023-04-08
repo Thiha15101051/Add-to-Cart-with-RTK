@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 
 const initialState = {
@@ -8,6 +9,22 @@ const initialState = {
   cartItem: [],
   search:'',
 };
+
+const COOKIE_KEY='cartItem';
+const storedItems=Cookies.get(COOKIE_KEY)
+
+if (storedItems) {
+  initialState.cartItem=JSON.parse(storedItems)
+  initialState.totalAmount=calcTotalAmount(initialState.cartItem)
+  initialState.quantity=calcTotalQty(initialState.cartItem)
+}
+function calcTotalAmount(items){
+  return items.reduce((prevAmount,currentAmount)=>prevAmount+(currentAmount.price*currentAmount.quantity),0)
+}
+function calcTotalQty(items){
+  return items.reduce((prevQty,currentQty)=>prevQty+currentQty.quantity,0)
+}
+
 export const CartSlice = createSlice({
   name: "Cart",
   initialState,
@@ -19,13 +36,16 @@ export const CartSlice = createSlice({
       } else {
         state.cartItem = [...state.cartItem, { ...payload, quantity: 1 }];
       }
-      state.quantity++;
-      state.totalAmount += payload.price;
+      state.quantity=calcTotalQty(state.cartItem);
+      state.totalAmount =calcTotalAmount(state.cartItem);
+      Cookies.set(COOKIE_KEY,JSON.stringify(state.cartItem));
     },
     removeCart: (state, { payload }) => {
       state.cartItem = state.cartItem.filter((item) => item.id !== payload.id);
       state.quantity -= payload.quantity;
       state.totalAmount -= payload.price * payload.quantity;
+      Cookies.remove(COOKIE_KEY);
+      Cookies.set(COOKIE_KEY, JSON.stringify(state.cartItem));
       return state;
     },
     incrementItem: (state, { payload }) => {
@@ -33,16 +53,19 @@ export const CartSlice = createSlice({
       ItemQty.quantity++;
       state.quantity +=1;
       state.totalAmount += payload.price;
+      Cookies.remove(COOKIE_KEY);
+      Cookies.set(COOKIE_KEY, JSON.stringify(state.cartItem));
     },
-    decrementItem: (state, { payload }) => {
+    decrementItem: (state, { payload }) => {  
       const ItemQty = state.cartItem.find((item) => item.id === payload.id);
-      if (payload.quantity === 1) {
+      if (ItemQty.quantity === 1) {
         return;
       }
       ItemQty.quantity--;
       state.quantity -=1;
       state.totalAmount -= payload.price;
-      
+      Cookies.remove(COOKIE_KEY);
+      Cookies.set(COOKIE_KEY, JSON.stringify(state.cartItem)) 
     },
     showModalBtn:(state,{payload})=>{
       state.showModal=payload;
